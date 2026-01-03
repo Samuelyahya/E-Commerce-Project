@@ -8,18 +8,18 @@ import { AlertCircle, ChevronLeft } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 import { useFormState, useFormStatus } from 'react-dom'
-import { postCategory, updateCategory } from '../lib/actions'
+import { postLocation, updateLocation } from '../lib/actions'
 import { Label } from '@/components/ui/label'
-import { Category } from '@prisma/client'
+import { Location } from '@prisma/client'
 import { ActionResult } from '@/types'
 
 const initialState: ActionResult = {
   error: ""
 };
 
-interface FormCategoryProps {
+interface FormLocationProps {
   type?: 'ADD' | 'EDIT'
-  data?: Category | null
+  data?: Location | null
 };
 
 function SubmitButton() {
@@ -27,16 +27,16 @@ function SubmitButton() {
 
   return (
     <Button size="sm" type="submit" disabled={pending}>
-      {pending ? 'Saving...' : 'Save Category'}
+      {pending ? 'Saving...' : 'Save Location'}
     </Button>
   )
 }
 
-export default function FormCategory({ data = null, type = 'ADD' }: FormCategoryProps) {
+export default function FormLocation({ data = null, type = 'ADD' }: FormLocationProps) {
 
-  const updateCategoryWithId = (_: unknown, formData: FormData) => updateCategory(_, formData, data?.id)
+  const updateLocationWithId = (_: unknown, formData: FormData) => updateLocation(_, formData, data?.id)
 
-  const [state, formAction] = useFormState(type === 'ADD' ? postCategory : updateCategoryWithId, initialState)
+  const [state, formAction] = useFormState(type === 'ADD' ? postLocation : updateLocationWithId, initialState)
 
   return (
     <form action={formAction}>
@@ -49,13 +49,13 @@ export default function FormCategory({ data = null, type = 'ADD' }: FormCategory
               className="h-7 w-7"
               asChild
             >
-              <Link href="/dashboard/categories">
+              <Link href="/dashboard/locations">
                 <ChevronLeft className="h-4 w-4" />
                 <span className="sr-only">Back</span>
               </Link>
             </Button>
             <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
-              Category Controller
+              Location Controller
             </h1>
             <div className="hidden items-center gap-2 md:ml-auto md:flex">
               <Button variant="outline" size="sm">
@@ -71,7 +71,7 @@ export default function FormCategory({ data = null, type = 'ADD' }: FormCategory
                 className="w-[500px]"
               >
                 <CardHeader>
-                  <CardTitle>Category Details</CardTitle>
+                  <CardTitle>Location Details</CardTitle>
                   <CardDescription>
                     Lipsum dolor sit amet, consectetur
                     adipiscing elit
@@ -356,7 +356,7 @@ export default function FormCategory({ data = null, type = 'ADD' }: FormCategory
             <Button variant="outline" size="sm">
               Discard
             </Button>
-            <Button type="submit" size="sm">Save Category</Button>
+            <Button type="submit" size="sm">Save Location</Button>
           </div>
         </div>
       </div>

@@ -8,3 +8,7 @@ export const SignInSchema = z.object({
 export const CategorySchema = z.object({
     name: z.string().min(4, "Name must be at least 4 characters long").max(255, "Name must be at most 255 characters long"),
 });
+
+export const LocationSchema = z.object({
+    name: z.string().min(4, "Name must be at least 4 characters long").max(255, "Name must be at most 255 characters long"),
+});
