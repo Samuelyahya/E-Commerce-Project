@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useFormState, useFormStatus } from "react-dom";
-import { deleteLocation } from "../lib/actions";
+import { deleteBrand } from "../lib/actions";
 import { Button } from "@/components/ui/button";
 import { Trash } from "lucide-react";
 import { ActionResult } from "@/types";
@@ -10,6 +10,10 @@ import { ActionResult } from "@/types";
 const initialState: ActionResult = {
     error: "",
 };
+
+interface FormDeleteProps {
+    id: number;
+}
 
 function SubmitButton() {
     const { pending } = useFormStatus();
@@ -22,8 +26,10 @@ function SubmitButton() {
     );
 }
 
-export default function FormDelete({ id }: { id: number }) {
-    const [state, formAction] = useFormState(deleteLocation, initialState);
+export default function FormDelete({ id }: FormDeleteProps) {
+    const deleteBrandWithId = (_: unknown, formData: FormData) => deleteBrand(_, formData, id)
+
+    const [state, formAction] = useFormState(deleteBrandWithId, initialState);
 
     return (
         <form action={formAction}>
